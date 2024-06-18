@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example</title>
+
+    <script defer src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+</head>
+<body>
+    <div x-data="{ editing: false }" @trigger-edit.window="editing = !editing">
+
+        <button hx-get="{% url 'process' 'save' %}" hx-swap="outerHTML" :disabled="editing">Edit</button>
+        <button hx-get="{% url 'process' 'save' %}" hx-swap="outerHTML" :disabled="editing">Edit</button>
+
+        <p>...</p>
+
+        {% partialdef edit-button inline=True %}
+        <button hx-get="{% url 'process' 'save' %}" hx-swap="outerHTML" :disabled="editing">Edit</button>
+        {% endpartialdef %}
+
+        {% partialdef save-button %}
+        <button hx-get="{% url 'process' 'edit' %}" hx-swap="outerHTML">Save</button>
+        {% endpartialdef %}
+    </div>  
+</body>
+</html>
